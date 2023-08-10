@@ -10,45 +10,60 @@
 <body>
     <div class="container my-3">
         <div class="row">
-            <div class="col-12 col-md-5">
-                <form class="m-5">
+            <div class="col-12 col-md-4">
+                <form  id="formPerson" onsubmit="event.preventDefault();addFormPerson()">
         
                     <div class="mb-3">
                         <label for="dni">DNI</label>
-                        <input type="number" id="dni"  class="form-control">
+                        <input type="number" id="dni"  class="form-control" required>
                     </div>
             
                     <div class="mb-3">
                         <label for="fistName">Nombres</label>
-                        <input type="text" id="fistName"  class="form-control">
+                        <input type="text" id="fistName"  class="form-control" required>
                     </div>
             
                     <div class="mb-3">
                         <label for="lastName">Apellido</label>
-                        <input type="text" id="lastName"  class="form-control">
+                        <input type="text" id="lastName"  class="form-control" required>
                     </div>
             
                     <div class="mb-3">
                         <label for="birthday">Edad</label>
-                        <input type="number" id="birthday"  class="form-control">
+                        <input type="date" id="birthday"  class="form-control" required>
                     </div>
             
                     <div class="mb-3">
                         <label for="address">Dirección</label>
-                        <input type="text" id="address"  class="form-control">
+                        <input type="text" id="address"  class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="status">Status</label>
-                        <input type="text" id="status"  class="form-control">
+                        <input type="text" id="status"  class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <button type="button" class="btn btn-primary" onclick="addFormPerson()">Agregar</button>
+                        <button type="submit" class="btn btn-primary" >Agregar</button>
                     </div>
                 </form>
             </div>
 
-            <div class="col-12 col-md-5"    >
-
+            <div class="col-12 col-md-8"    >
+                <input type="text"  class="form-control mb-3" onkeyup="searchInput()" placeholder="BUSQUEDA POR NOMBRES Y APELLIDOS" id="search">
+                <table class="table-dark table table-striped table-bordered ">
+                    <thead>
+                        <th>DNI</th>
+                        <th>NOMBRES Y APELLIDOS</th>
+                        <th>EDAD</th>
+                        <th>DIRECCIÓN</th>
+                        <th>ESTATUS</th>
+                        <th>ACCIONES</th>
+                    </thead>
+                    <tbody id="listPerson">
+                        <tr>
+                            <td class="text-center" colspan="6">NO HAY REGISTRO</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
