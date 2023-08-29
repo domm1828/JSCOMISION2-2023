@@ -55,7 +55,7 @@ restaDos(3,4);
 
 /** OPERACIONES MATEMTICAS SEGUN LA ACCION QUE INGRESE EL USUARIO + - * / */
 
-const prompt = require("prompt-sync")(({sigint:true}))
+//const prompt = require("prompt-sync")(({sigint:true}))
 
 const calculo = (z,x,y) =>{
     let result;
