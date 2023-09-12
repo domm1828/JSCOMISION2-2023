@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import {usePathname} from 'next/navigation'
+import { ThemeContextProvider } from './context/theme';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -33,7 +34,11 @@ export default function RootLayout({
           <Link href='/contactos'  className={ (currentRoute === '/contactos') ? active : inactive}> CONTACTOS </Link>
         </nav>
 
-        {children}</body>
+        <ThemeContextProvider>
+           {children}
+        </ThemeContextProvider>
+        
+        </body>
     </html>
   )
 }
