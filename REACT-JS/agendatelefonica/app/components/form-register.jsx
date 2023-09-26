@@ -1,9 +1,9 @@
 'use client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFloppyDisk, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 
-export const FormRegister = ({listContact,updateList}) => {
+export const FormRegister = ({ listContact, updateList, editContact }) => {
 
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -11,11 +11,14 @@ export const FormRegister = ({listContact,updateList}) => {
     const [phone, setPhone] = useState('');
     const inputName = useRef(null);
 
+    const [edit, setEdit] = useState(false);
+
     const handleCancel = () => {
         setName('');
         setLastName('');
         setEmail('');
         setPhone('');
+        setEdit(false);
         inputName.current.focus();
     }
 
@@ -24,22 +27,41 @@ export const FormRegister = ({listContact,updateList}) => {
             (lastName.trim().length > 0) &&
             (email.trim().length > 0) &&
             (phone.trim().length > 0)) {
-
+            if (!edit) {
                 let contact = [{
                     firstName: name,
                     lastName,
                     email,
                     phone
                 }];
-
-                updateList([...listContact,...contact]);
-                handleCancel();
+                updateList([...listContact, ...contact]);
+            }
+            else {
+                let index = editContact.index;
+                listContact[index].firstName=name;
+                listContact[index].lastName=lastName;
+                listContact[index].email=email;
+                listContact[index].phone=phone;
+                updateList([...listContact]);
+            }
+            handleCancel();
 
         }
         else {
 
         }
     }
+
+    useEffect(() => {
+        if (editContact != null) {
+            setName(editContact.firstName);
+            setLastName(editContact.lastName);
+            setPhone(editContact.phone);
+            setEmail(editContact.email);
+            setEdit(true)
+        }
+        console.log(editContact)
+    }, [editContact])
 
     return (<>
         <div className="border-b border-gray-900/10 pb-12">
@@ -135,7 +157,8 @@ export const FormRegister = ({listContact,updateList}) => {
                     type="button"
                     className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                    <FontAwesomeIcon icon={faFloppyDisk} className='h-6 w-6 text-white-500' /> Save
+                    <FontAwesomeIcon icon={faFloppyDisk} className='h-6 w-6 text-white-500' />
+                    {edit ? 'Edit' : 'Save'}
                 </button>
             </div>
         </div>
