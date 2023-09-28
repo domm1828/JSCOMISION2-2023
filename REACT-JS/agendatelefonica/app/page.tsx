@@ -15,8 +15,14 @@ export default function Home() {
     setEditContact({...contact,...elements});
   }
 
-  const handleDeleteContact = (index:number) =>{
-      contacts.splice(index,1);
+  const validateDni = (dni:number) => {
+    return contacts.findIndex((contact) => {
+        return contact.dni == dni;
+    });
+}
+
+  const handleDeleteContact = (dni:number) =>{
+      contacts.splice(validateDni(dni),1);
       setContacts([...contacts]);
   }
 

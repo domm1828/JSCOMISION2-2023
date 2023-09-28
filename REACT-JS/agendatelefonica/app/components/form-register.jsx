@@ -9,6 +9,7 @@ export const FormRegister = ({ listContact, updateList, editContact }) => {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [dni, setDni] = useState('');
     const inputName = useRef(null);
 
     const [edit, setEdit] = useState(false);
@@ -18,8 +19,15 @@ export const FormRegister = ({ listContact, updateList, editContact }) => {
         setLastName('');
         setEmail('');
         setPhone('');
+        setDni('');
         setEdit(false);
         inputName.current.focus();
+    }
+
+    const validateDni = () => {
+        return listContact.findIndex((contact) => {
+            return contact.dni == dni;
+        });
     }
 
     const handleSubmit = () => {
@@ -29,22 +37,38 @@ export const FormRegister = ({ listContact, updateList, editContact }) => {
             (phone.trim().length > 0)) {
             if (!edit) {
                 let contact = [{
+                    dni,
                     firstName: name,
                     lastName,
                     email,
                     phone
                 }];
-                updateList([...listContact, ...contact]);
+                if (validateDni() == -1) {
+                    updateList([...listContact, ...contact]);
+                    handleCancel();
+                }
+                else {
+                    alert("Error DNI")
+                    inputName.current.focus();
+                }
             }
             else {
-                let index = editContact.index;
-                listContact[index].firstName=name;
-                listContact[index].lastName=lastName;
-                listContact[index].email=email;
-                listContact[index].phone=phone;
-                updateList([...listContact]);
+                let index = validateDni();
+                if (validateDni() == -1 || validateDni() == index) {
+                    listContact[index].dni = dni;
+                    listContact[index].firstName = name;
+                    listContact[index].lastName = lastName;
+                    listContact[index].email = email;
+                    listContact[index].phone = phone;
+                    updateList([...listContact]);
+                    handleCancel();
+                }
+                else {
+                    alert("Error DNI")
+                    inputName.current.focus();
+                }
             }
-            handleCancel();
+
 
         }
         else {
@@ -54,6 +78,8 @@ export const FormRegister = ({ listContact, updateList, editContact }) => {
 
     useEffect(() => {
         if (editContact != null) {
+
+            setDni(editContact.dni);
             setName(editContact.firstName);
             setLastName(editContact.lastName);
             setPhone(editContact.phone);
@@ -68,13 +94,34 @@ export const FormRegister = ({ listContact, updateList, editContact }) => {
             <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+                <div className="sm:col-span-3">
+                    <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                        DNI
+                    </label>
+                    <div className="mt-2">
+                        <input
+                            ref={inputName}
+                            value={dni}
+                            onChange={(e) => {
+                                setDni(e.target.value)
+                            }}
+                            type="number"
+                            name="first-name"
+                            id="first-name"
+                            autoComplete="given-name"
+                            className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                    </div>
+                </div>
+
                 <div className="sm:col-span-3">
                     <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
                         First name
                     </label>
                     <div className="mt-2">
                         <input
-                            ref={inputName}
+
                             value={name}
                             onChange={(e) => {
                                 setName(e.target.value)
