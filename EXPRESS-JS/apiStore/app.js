@@ -1,8 +1,13 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+const isAdmin = require('./middleware/isAdmin.middleware')
 const port = 3500;
 
 const userRouter = require('./routers/users.router')
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 //https://localhost:3500
 
@@ -15,11 +20,12 @@ app.get('/',(req,res)=>{
     //end finaliza el proceso de repuesta
 });
 
+//app.use(isAdmin);
 app.get('/hello',(req,res)=>{
     res.json({data:'hello'});
 });
 
-app.use('/users',userRouter);
+app.use('/users',isAdmin,userRouter);
 
 
 //MVC
