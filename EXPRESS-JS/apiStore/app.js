@@ -25,7 +25,7 @@ app.get('/hello',(req,res)=>{
     res.json({data:'hello'});
 });
 
-app.use('/users',isAdmin,userRouter);
+app.use('/users',userRouter);
 
 
 //MVC

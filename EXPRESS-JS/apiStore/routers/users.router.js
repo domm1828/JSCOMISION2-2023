@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const {getAll,createUser,deleteUser,findFilter} = require('../controllers/users.controller')
+const validateUser = require('../request/user.request');
 
 router.get('/',getAll);
 
-router.post('/',createUser);
+router.post('/',validateUser,createUser);
 
 router.delete('/',deleteUser);
 
