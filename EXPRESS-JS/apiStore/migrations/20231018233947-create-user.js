@@ -10,23 +10,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
-        type: Sequelize.STRING
+        unique:true,
+        allowNull:false,
+        type: Sequelize.STRING(45)
       },
       password: {
-        type: Sequelize.STRING,
-        
-      },
-      type_user: {
-        defaultValue:0,
-        type: Sequelize.INTEGER
+        type: Sequelize.TEXT
       },
       active: {
-        defaultValue:0,
         type: Sequelize.INTEGER
       },
-      clients_id:{
-        type:Sequelize.INTEGER,
+      type_user: {
+        type: Sequelize.INTEGER,
         allowNull:false,
+      },
+      clients_id: {
+        type: Sequelize.INTEGER,
         references:{
           model:'clients',
           key:'id'
@@ -39,10 +38,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      deleteAt: {
-        type: Sequelize.DATE
-      },
+      }
     });
   },
   async down(queryInterface, Sequelize) {
