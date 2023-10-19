@@ -15,25 +15,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   user.init({
     email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    type_user: DataTypes.INTEGER,
+    password: DataTypes.TEXT,
     active: DataTypes.INTEGER,
-    clients_id :{
-      type:DataTypes.INTEGER,
-      allowNull:false,
-      references:{
-        model:'clients',
-        key:'id'
-      }
-    },
+    type_user: DataTypes.INTEGER,
+    clients_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'user',
   });
-
-  user.associate = function (models) {
-    user.belongsTo(models.client);
-  }
-
   return user;
 };
