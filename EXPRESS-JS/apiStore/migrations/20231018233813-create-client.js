@@ -10,19 +10,24 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       dni: {
+        allowNull:false,
+        unique:true,
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        allowNull:false,
+        type: Sequelize.STRING(45)
       },
       last_name: {
-        type: Sequelize.STRING
+        allowNull:false,
+        type: Sequelize.STRING(45)
       },
       email: {
-        type: Sequelize.STRING
+        allowNull:false,
+        type: Sequelize.STRING(45)
       },
       phone: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(15)
       },
       createdAt: {
         allowNull: false,
