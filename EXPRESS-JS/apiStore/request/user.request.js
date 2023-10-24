@@ -12,7 +12,8 @@ const validateUser = (req,resp,next) =>{
             "any.required" :"El password es requerido",
             'string.min':"Ingrese como minimo 6 caracteres en tu contraseña"
         }),
-        type_user:Joi.number().integer().required()
+        type_user:Joi.number().integer().required(),
+        clients_id:Joi.number().integer().required()
     });
 
     validateRequest(req,resp,next,schema)

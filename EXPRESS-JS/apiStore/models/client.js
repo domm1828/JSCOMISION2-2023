@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   client.init({
-    dni: DataTypes.INTEGER,
+    dni: {
+      type:DataTypes.INTEGER,
+      unique:true
+    },
     name: DataTypes.STRING,
     last_name: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -22,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'client',
+    paranoid:true
   });
   return client;
 };
