@@ -16,21 +16,16 @@ const filterValidateFile = (req, file, cb) =>{
         cb(null,true);
     }
     else{
-        cb(new Error('No acceptamos este tipo de archivo '+mimeType),false)
+        const error = new Error("No se puede subir archivos con esa extension "+mimeType);
+        req.uploadError = {
+            error: error.message, 
+          };
+          return cb(null, false, error);
     }
 }
 
 const uploadStorage = multer({storage:uploadSingle,fileFilter:filterValidateFile});
 
-const uploadFile = (req,res,next) =>{
-   const upload = uploadStorage.single('photo');
-   upload(req,res,(error)=>{
  
-        if(error){
-           res.status(404).send({error});
-        }
-        next()
-   })
-}
 
 module.exports = uploadStorage;

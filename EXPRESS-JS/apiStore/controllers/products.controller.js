@@ -21,7 +21,9 @@ const createProduct = async (req, res) => {
 
     try{
 
-       
+        if(req.uploadError){
+            res.status(500).json({ error: true, message: req.uploadError }); 
+        }
         
 
         let body = req.body;
