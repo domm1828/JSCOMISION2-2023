@@ -11,7 +11,7 @@ router.post('/',validateClient,postCreateClient);
 router.delete('/:id',deleteClient);
 
 /** Update client */
-router.put('/:id',validateClient,updateClient);
+router.put('/:id',updateClient);
 
 
 module.exports = router;

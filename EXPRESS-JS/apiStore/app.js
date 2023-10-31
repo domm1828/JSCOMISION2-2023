@@ -6,6 +6,7 @@ const port = 3500;
 
 const userRouter = require('./routers/users.router')
 const clientRouter = require('./routers/clients.router')
+const productRouter = require('./routers/products.router')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -28,6 +29,7 @@ app.get('/hello',(req,res)=>{
 
 app.use('/users',userRouter);
 app.use('/clients',clientRouter);
+app.use('/products',productRouter);
 
 
 //MVC
