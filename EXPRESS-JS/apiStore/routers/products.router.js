@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/',getAll);
 router.post('/',uploadStorage.single('photo'),createProduct);
-router.put('/:id',updateProduct);
+router.put('/:id',uploadStorage.single('photo'),updateProduct);
 router.delete('/:id',deleteProduct);
 
 

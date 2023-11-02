@@ -16,13 +16,37 @@ module.exports = (sequelize, DataTypes) => {
   product.init({
     code: DataTypes.STRING,
     name: DataTypes.STRING,
-    description: DataTypes.TEXT,
+    description: {
+      type:DataTypes.TEXT,
+      set(value){
+        this.setDataValue('description',value.toUpperCase())
+      }
+    },
     amount: DataTypes.FLOAT,
     stock: DataTypes.INTEGER,
-    photo: DataTypes.STRING
+    photo: {
+     type:DataTypes.STRING,
+     get(){
+      return this.getDataValue('photo') ?  `http://localhost:4500/public/products/${this.getDataValue('photo')}` :'';
+     }
+    },
+    total:{
+      type: DataTypes.VIRTUAL(DataTypes.FLOAT,['amount','stock']),
+      get(){
+        return `${this.amount*this.stock}`
+      }
+    },
+    totalUsd:{
+      type: DataTypes.VIRTUAL(DataTypes.FLOAT,['amount','stock']),
+      get(){
+        return `${this.amount*this.stock*900}`
+      }
+    }
+
   }, {
     sequelize,
     modelName: 'product',
+    paranoid:true
   });
   return product;
 };

@@ -16,11 +16,8 @@ const filterValidateFile = (req, file, cb) =>{
         cb(null,true);
     }
     else{
-        const error = new Error("No se puede subir archivos con esa extension "+mimeType);
-        req.uploadError = {
-            error: error.message, 
-          };
-          return cb(null, false, error);
+        cb(null, false);
+        cb(new Error("No se puede subir archivos con esa extension "+mimeType)) 
     }
 }
 
