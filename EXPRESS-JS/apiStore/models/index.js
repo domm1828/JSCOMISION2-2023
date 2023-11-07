@@ -40,4 +40,8 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+
+db.user.belongsTo(db.client,{foreignKey:"clients_id", as:"clientsUser"})
+db.client.belongsTo(db.user,{foreignKey:"id", as:"userClients"})
+
 module.exports = db;

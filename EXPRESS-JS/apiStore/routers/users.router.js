@@ -1,16 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const {getAll,createUser,deleteUser,findFilter} = require('../controllers/users.controller')
+const {getAll,createUser,deleteUser,updateUser} = require('../controllers/users.controller')
 const validateUser = require('../request/user.request');
 
 router.get('/',getAll);
 
 router.post('/',validateUser,createUser);
 
-router.delete('/',deleteUser);
+router.delete('/:id',deleteUser); 
 
-//ROUTER DYNAMIC
-router.get('/:id',findFilter)
+router.put('/:id',updateUser)
 
 
 module.exports = router;

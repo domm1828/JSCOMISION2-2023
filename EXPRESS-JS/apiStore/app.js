@@ -7,6 +7,7 @@ const port = 4500;
 const userRouter = require('./routers/users.router')
 const clientRouter = require('./routers/clients.router')
 const productRouter = require('./routers/products.router')
+const loginRouter = require('./routers/auth.router')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -43,6 +44,7 @@ const invalidPathHandler = (req,resp,next) =>{
 app.use('/users',userRouter);
 app.use('/clients',clientRouter);
 app.use('/products',productRouter);
+app.use('/login',loginRouter);
 
 app.use(errorHandler);
 app.use(invalidPathHandler);

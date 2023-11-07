@@ -25,3 +25,5 @@ module.exports = (sequelize, DataTypes) => {
   });
   return user;
 };
+
+//clientsId
