@@ -8,6 +8,8 @@ const userRouter = require('./routers/users.router')
 const clientRouter = require('./routers/clients.router')
 const productRouter = require('./routers/products.router')
 const loginRouter = require('./routers/auth.router')
+const userMongoRouter = require('./routers/mongo/users.router')
+require('./config/mongodb');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -45,6 +47,8 @@ app.use('/users',userRouter);
 app.use('/clients',clientRouter);
 app.use('/products',productRouter);
 app.use('/login',loginRouter);
+app.use('/mongo/users',userMongoRouter);
+
 
 app.use(errorHandler);
 app.use(invalidPathHandler);
