@@ -1,5 +1,6 @@
 const db = require("../models");
 const { Op } = require("sequelize");
+const Clients = require("../modelsmdb/clients");
 
 
 const getAllClients = async (req, resp) => {
@@ -45,6 +46,8 @@ const postCreateClient = async (req, resp) => {
 
     try {
         let client = await db.client.create(req.body);
+        let clientMongo = new Clients(req.body);
+        await clientMongo.save();
         resp.status(200).json({ error: false, message: 'Cliente Creado exitosamente', data: client });
     }
     catch (e) {
